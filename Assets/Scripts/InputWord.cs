@@ -20,6 +20,20 @@ public class InputWord : MonoBehaviour {
 		
 	}
 
+	/*
+	ToDo:
+	入力　→　出力（丸々が出力されました）
+	ゲーム起動時に適当な文言を出力
+	入力　→　サーバに投げる　→　サーバからの受取　→　出力
+	敵の配置（画像を入れ込む）
+	敵のHPの設定
+	敵のHPの表示
+	敵の消滅判定の設定
+	敵の攻撃（してくるけど無効にしちゃえばいい．）
+	攻撃力の計算式作成
+	クリアの表示
+	*/
+
 	public void EndEdit(){
 		//Debug.Log(_inputField.text);
 		//Debug.Log(_inputField.textComponent.text);
