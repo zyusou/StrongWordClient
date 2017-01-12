@@ -21,6 +21,9 @@ public class InputWord : MonoBehaviour {
 	}
 
 	public void EndEdit(){
+		//Debug.Log(_inputField.text);
+		//Debug.Log(_inputField.textComponent.text);
+
 		if(AssertInput(_inputField)){
 			Debug.Log("OK");
 		}
@@ -35,7 +38,6 @@ public class InputWord : MonoBehaviour {
 				return false;
 			}
 		}
-
 		return true;
 	}
 }
