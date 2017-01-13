@@ -97,7 +97,6 @@ public class InputWord : MonoBehaviour
         }
         else
         {
-			print(www.text);
 			_gameController.SetLabelAndScoreFromString(www.text);
 		}
 
