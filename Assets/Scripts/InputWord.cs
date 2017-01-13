@@ -10,9 +10,12 @@ public class InputWord : MonoBehaviour {
 	+ "ナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン"
 	+ "ーガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポァィゥェォッュャョ";
 	
+	private ScrollController _scrollController = null;
+
 	// Use this for initialization
 	void Start () {
 		_inputField = GetComponent<InputField>();
+		_scrollController = GameObject.Find("Content").GetComponent<ScrollController>();
 	}
 	
 	// Update is called once per frame
@@ -23,9 +26,11 @@ public class InputWord : MonoBehaviour {
 	/*
 	ToDo:
 	入力　→　出力（丸々が出力されました）
-	ゲーム起動時に適当な文言を出力
+	ScrollViewのぬる解決．GetComponentがうまくできていない．
+	http://tsubakit1.hateblo.jp/entry/2014/12/18/040252
+	ゲーム起動時に適当な文言を出力	Done
 	入力　→　サーバに投げる　→　サーバからの受取　→　出力
-	敵の配置（画像を入れ込む）
+	敵の配置（画像を入れ込む）　Done
 	敵のHPの設定
 	敵のHPの表示
 	敵の消滅判定の設定
@@ -39,9 +44,10 @@ public class InputWord : MonoBehaviour {
 		//Debug.Log(_inputField.textComponent.text);
 
 		if(AssertInput(_inputField)){
-			Debug.Log("OK");
+			_scrollController.addBattleLog(_inputField.textComponent.text);
 		}
 		else{
+			// カタカナ以外弱いので駄目ですって表示しましょう．
 			Debug.Log("NG");
 		}
 	}
@@ -52,6 +58,10 @@ public class InputWord : MonoBehaviour {
 				return false;
 			}
 		}
+		if(input.textComponent.text.Length == 0){
+			return false;
+		}
+
 		return true;
 	}
 }
