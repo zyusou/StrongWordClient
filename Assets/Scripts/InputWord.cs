@@ -12,13 +12,15 @@ public class InputWord : MonoBehaviour
     + "ーガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポァィゥェォッュャョ";
 
     private ScrollController _scrollController = null;
+	private GameController _gameController;
 
     // Use this for initialization
     void Start()
     {
         _inputField = GetComponent<InputField>();
         _scrollController = GameObject.Find("Content").GetComponent<ScrollController>();
-    }
+		_gameController = GameObject.Find("GameMaster").GetComponent<GameController>();
+;    }
 
     // Update is called once per frame
     void Update()
@@ -36,13 +38,13 @@ public class InputWord : MonoBehaviour
 	出力一番下　→　毎フレームではなく更新時にのみ動作するように変更（時間があったらやります．マウスオンしているかどうかで判断すればよいかと．）
 	UIの位置変更 done
 	入力　→　サーバに投げる　→　サーバからの受取　→　出力　Done
-	敵のHPの設定
+	ゲームコントローラーから最初の文字列出力を実装 Done
+	スコアの受取，パースの実装 
+	攻撃力の計算式作成
+	敵のHPの設定（スクリプト書いて，シリアライズで敵ごとに設定できるようにする）
 	敵のHPの表示
 	敵の消滅判定の設定
-	敵の攻撃（してくるけど無効にしちゃえばいい．）
-	攻撃力の計算式作成
 	クリアの表示
-	時間があったらココじゃなくて別でゲームコントローラー作成したい……．
 	*/
 
     public void EndEdit()
@@ -53,13 +55,14 @@ public class InputWord : MonoBehaviour
         if (AssertInput(_inputField))
         {
             var text = _inputField.textComponent.text;
-            _scrollController.addLogForQueue(text);
+            _scrollController.addLogForQueue("あなたは\"" + text + "\"と唱えた！");
+			_gameController.addInputKatakanaToList(text);
             StartCoroutine(PostInputText(text));
         }
         else
         {
             // カタカナ以外弱いので駄目ですって表示しましょう．
-            _scrollController.addLogForQueue("カタカナ　イガイ　ヨワイ．");
+            _scrollController.addLogForQueue("***駄目です***");
             _scrollController.addLogForQueue("ひらがな・漢字・記号は\"弱い\"ので受け付けません！！！");
             _scrollController.addLogForQueue("打ち込んでEnterを押せば変換無しで入力できます．");
         }
@@ -95,6 +98,7 @@ public class InputWord : MonoBehaviour
         else
         {
 			print(www.text);
+			_gameController.SetLabelAndScoreFromString(www.text);
 		}
 
     }

@@ -12,11 +12,8 @@ public class ScrollController : MonoBehaviour {
 
 	private bool _isRunning = false;
 
-	private string _startText = "敵が現れた！";
-
 	// Use this for initialization
 	void Start () {
-		makeLogInstance(_startText);
 	}
 	
 	// Update is called once per frame
@@ -33,7 +30,7 @@ public class ScrollController : MonoBehaviour {
 
 		if(_logQueue.Count != 0){
 			makeLogInstance(_logQueue.Dequeue());
-			yield return new WaitForSeconds(0.75f);	
+			yield return new WaitForSeconds(1.0f);	
 		}
 
 		_isRunning = false;
