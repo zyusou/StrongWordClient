@@ -5,15 +5,17 @@ using UnityEngine.UI;
 
 public class ScrollBarController : MonoBehaviour {
 
-	private Scrollbar _scrollBar;
+	private Scrollbar _scrollbar;
 
 	// Use this for initialization
 	void Start () {
-		_scrollBar = GetComponent<Scrollbar>();
+		_scrollbar = GetComponent<Scrollbar>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		_scrollBar.value = 0;
+		_scrollbar.value = 0;
 	}
+
+
 }

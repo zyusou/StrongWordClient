@@ -12,13 +12,11 @@ public class ScrollController : MonoBehaviour {
 
 	private bool _isRunning = false;
 
+	private string _startText = "敵が現れた！";
+
 	// Use this for initialization
 	void Start () {
-		var item = GameObject.Instantiate(_logPrefab) as RectTransform;
-		item.SetParent(transform, false);
-		
-		var text = item.GetComponentInChildren<Text>();
-		text.text = "敵が現れた！";
+		makeLogInstance(_startText);
 	}
 	
 	// Update is called once per frame
@@ -34,11 +32,8 @@ public class ScrollController : MonoBehaviour {
 		_isRunning = true;
 
 		if(_logQueue.Count != 0){
-			var item = GameObject.Instantiate(_logPrefab) as RectTransform;
-			item.SetParent(transform, false);
-			var text = item.GetComponentInChildren<Text>();
-			text.text = _logQueue.Dequeue();
-			yield return new WaitForSeconds(0.5f);
+			makeLogInstance(_logQueue.Dequeue());
+			yield return new WaitForSeconds(0.75f);	
 		}
 
 		_isRunning = false;
@@ -46,10 +41,17 @@ public class ScrollController : MonoBehaviour {
 	}
 
 	//リスト（キュー）に
-	public void addBattleLog(string outputText){
+	public void addLogForQueue(string outputText){
 		if(outputText.Length != 0){
 			_logQueue.Enqueue(outputText);
 		}
+	}
+
+	private void makeLogInstance(string logText){
+		var item = GameObject.Instantiate(_logPrefab) as RectTransform;
+		item.SetParent(transform, false);
+		var text = item.GetComponentInChildren<Text>();
+		text.text = logText;
 	}
 
 }
