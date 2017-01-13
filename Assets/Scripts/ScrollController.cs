@@ -35,6 +35,7 @@ public class ScrollController : MonoBehaviour {
 
 		if(_logQueue.Count != 0){
 			var item = GameObject.Instantiate(_logPrefab) as RectTransform;
+			item.SetParent(transform, false);
 			var text = item.GetComponentInChildren<Text>();
 			text.text = _logQueue.Dequeue();
 			yield return new WaitForSeconds(0.5f);
